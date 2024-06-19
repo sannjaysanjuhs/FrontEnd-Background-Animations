@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		
+.wallet {
+  position: absolute;
+  display: block;
+  width: 450px;
+  height: 380px;
+  background: #444;
+  border-radius: 15px;
+  box-shadow: 0px 0px 120px rgba(40,40,40,0.8);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.department {
+  position: absolute;
+  display: block;
+  width: 90%;
+  background: #444;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-top: 1px dashed rgba(100,100,100,1);
+}
+
+#one {
+  bottom: 0;
+  height: 170px;
+  z-index: 100;
+}
+
+#two {
+  bottom: 50px;
+  height: 170px;
+  z-index: 50;
+}
+
+#three {
+  bottom: 100px;
+  height: 170px;
+  z-index: 25;
+}
+
+#four {
+  bottom: 150px;
+  height: 170px;
+  z-index: -15;
+}
+
+.card {
+  position: absolute;
+  display: block;
+  width: 80%;
+  height: 210px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 90;
+  bottom: 0;
+  border-radius: 10px;
+}
+
+#visa {
+  position: absolute;
+  display: block;
+  width: 60px;
+  top: 12px;
+  right: 20px;
+}
+
+.chip {
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 40px;
+  background: #D9C798;
+  border-radius: 5px;
+  top: 35px;
+  left: 50px;
+}
+
+.card h1 {
+  display: inline-block;
+  font-family: 'Oswald';
+  font-weight: 300;
+  font-size: 26px;
+  color: #FFF;
+  width: 100%;
+  margin: 15px 0px 0px 50px;
+  text-decoration: none;
+}
+
+.card h2 {
+  display: inline-block;
+  font-family: 'Oswald';
+  font-weight: 300;
+  font-size: 18px;
+  color: #FFF;
+  margin: 0;
+  width: 30%;
+  margin: 0px 0px 0px 50px;
+}
+
+.card p {
+  display: inline-block;
+  font-family: 'Lato';
+  font-weight: 900;
+  font-size: 12px;
+  color: #FFF;
+  margin: 0;
+  width: 30%;
+  margin: 15px 0px 0px 50px;
+}
+.card button {
+  background: #25ceff;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 50px;
+  margin: 45px 0px 0px 50px;
+}
+#card1 {
+  background: #25CEFF;
+}
+
+#card2{
+  background: #00A0CC;
+  z-index: 40;
+}
+
+#card3{
+  background: #0080A3;
+  z-index: -10;
+}
+
+#card4{
+  background: #002029;
+  z-index: -20;
+}
+
+.x button {
+  margin: 10px;
+  background: none;
+  color: #25ceff;
+  border: 1px solid black;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+}
+	</style>
+</head>
+<body>
+<div class="wallet">
+ <div class="card" id="card1" style="bottom: 0px">
+   <h1>Dowód Osobisty</h1>
+   <button>Pokaż dowód osobisty</button>
+  </div>
+ <div class="card" id="card2" style="bottom: 50px">
+  <h1>Prawo jazdy</h1>
+  <button>Pokaż prawo jazdy</button>
+  </div>
+ <div class="card" id="card3" style="bottom: 100px">
+  <h1>Karta pojazdu</h1>
+  <button>Pokaż kartę pojazdu</button>
+  </div>
+ <div class="card" id="card4" style="bottom: 150px">
+  <h1>Wizytówka</h1>
+  <button>Pokaż wizytówkę</button>
+  </div>
+ <div class="department" id="one"></div>
+ <div class="department" id="two"></div>
+ <div class="department" id="three"></div>
+ <div class="department" id="four"></div>
+</div>
+<script type="text/javascript">
+	
+var departments = document.getElementsByClassName('department');
+var cards = document.getElementsByClassName('card');
+var bottomValues = ['0px', '50px', '100px', '150px'];
+
+var oldBottom = 0;
+var newBottom = 0;
+
+for (var i = 0; i < cards.length; i++) {
+  cards[i].addEventListener('click', function() {
+    animation(this.id);
+  })
+}
+
+function animation(id) {
+
+  for (var i = 0; i < cards.length; i++) {
+    var card = document.getElementById(cards[i].id);
+    card.style.bottom = bottomValues[i];
+    if (card.id != id) {
+      card.name = '';
+    }
+  }
+
+  var selected = document.getElementById(id);
+  selected.style.transition = '0.3s';
+
+  if (selected.name != 'moved') {
+
+    oldBottom = parseInt(selected.style.bottom, 10);
+    newBottom = '350px';
+    selected.style.bottom = newBottom;
+    selected.name = 'moved';
+
+  } else if (selected.name == 'moved') {
+
+    selected.style.bottom = oldBottom + 'px';
+    selected.name = '';
+
+  }
+}
+</script>
+</body>
+
+</html>

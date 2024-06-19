@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		:root {
+	--clouds: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='filter'%3E%3CfeTurbulence baseFrequency='0.006' numOctaves='6' seed='2' /%3E%3CfeColorMatrix values='1.2 0.8 1.4 -0.5 -0.9 1.4 -0.4 1.3 -0.4 1.3 1.5 1.2 0.1 1.9 1 1.9 0.6 -0.7 1.1 1.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filter)'/%3E%3C/svg%3E%0A")
+		center center no-repeat;
+}
+svg {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index: 1;
+}
+body {
+	margin: 0 auto;
+}
+.bubble {
+	opacity: 0.4;
+}
+.skyHolder {
+	overflow: hidden;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+.sky {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	height: 100%;
+	width: 1000vw;
+	background: var(--clouds);
+	animation: skyMotion 400s alternate infinite;
+}
+.sky:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	height: 100%;
+	width: 100%;
+	background-image: linear-gradient(
+		rgba(255, 255, 255, 0.5),
+		rgba(255, 255, 255, 1)
+	);
+}
+@keyframes skyMotion {
+	from {
+		left: 0%;
+	}
+	to {
+		left: -900vw;
+	}
+}
+
+	</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+			<stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:0" />
+			<stop offset="100%" style="stop-color:rgba(255,255,255,0.8);stop-opacity:0.7" />
+		</radialGradient>
+	</defs>
+	<filter id="filter">
+		<feTurbulence baseFrequency=".1 .2" result="n" />
+		<feTurbulence baseFrequency=".01" numOctaves="3" />
+		</feComposite>
+		<feDisplacementMap in="n" yChannelSelector="G" scale="60" />
+		<feColorMatrix values="1 0 0 0 0
+                               0 1 0 0 0
+                               0 0 1 0 0
+                               0 0 0 0 1" />
+		<feComposite operator="in" in2="SourceGraphic" />
+	</filter>
+
+	<circle class="outline" cx="50%" cy="50%" r="15.1%" fill="none" stroke-weight="1" stroke="rgba(0,0,0,0.05)" />
+	<circle class="bubble" r="15%" cx="50%" cy="50%" filter="url(#filter)" />
+	<circle class="roundShading" cx="50%" cy="50%" r="15.1%" fill="url(#grad1)" />
+</svg>
+
+<div class="skyHolder">
+	<div class="sky"></div>
+</div>
+</body>
+</html>
